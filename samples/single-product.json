@@ -1,0 +1,15 @@
+{
+  "product": {
+    "id": "synthetic-1",
+    "title": " Canvas bag ",
+    "description": "Synthetic demonstration, not an actual offer.",
+    "link": "https://example.com/products/demo",
+    "image_link": "https://example.com/images/demo.jpg",
+    "price": "29.00 USD",
+    "availability": "in_stock",
+    "brand": "Synthetic Demo Brand",
+    "gtin": "4006381333932"
+  },
+  "country": "US",
+  "processing_consent": true
+}
