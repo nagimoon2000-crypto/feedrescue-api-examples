@@ -1,8 +1,31 @@
-# FeedRescue API examples
+# Google Merchant Center Feed Validation API — FeedRescue
 
 Python and JavaScript clients for **Google Merchant Center product feed diagnosis**. Check Google Shopping product data from Shopify, WooCommerce or your own feed importer without sharing store credentials.
 
-**Status:** key-protected free developer pilot, deployed 2026-10-29. Access is manually arranged, not instant signup. Automated payments, paid API subscriptions and a RapidAPI listing are not available. This repository contains integration examples and documentation; the hosted validation engine is not included.
+**Status:** key-protected free developer pilot. Access is manually arranged, not instant signup. A private RapidAPI draft contains the four POST operations; no public marketplace subscription or paid checkout is active. This repository contains integration examples and documentation; the hosted validation engine is not included.
+
+## Start here
+
+| Your goal | Next step |
+|---|---|
+| Evaluate an integration without a key | Run the anonymous connection check below |
+| Understand an invalid GTIN or safe suggestion | [Read a synthetic diagnosis](docs/first-diagnosis.md) |
+| Integrate Shopify/WooCommerce exports | [Python/JavaScript quickstart](#quickstart) and [integration guide](docs/integration.md) |
+| Get a one-time file review | [Discuss the FeedRescue file service on Upwork](https://www.upwork.com/services/product/2113612758971436241) — separate from API access |
+
+### Check the connection before requesting access
+
+Download or clone this repository, open its folder, then choose Python 3.11+ or Node 24+:
+
+```sh
+python clients/check_connection.py
+# Or, with Node:
+node clients/check-connection.mjs
+```
+
+This sends only three anonymous GET requests to the free pilot: health, OpenAPI and protected usage. It sends no key or product data. A `401` on protected usage is expected. `ready_for_key_request: true` means the basic connection checks passed; it is not a product diagnosis or RapidAPI gateway test. The tool does not install packages, create an account, retry automatically or purchase anything.
+
+If it passes, use the [pilot request brief](docs/first-diagnosis.md#request-a-free-api-pilot) to request manually reviewed access. If it fails, report status codes using a synthetic reproduction; do not share credentials.
 
 - [Live readiness endpoint](https://gimoon.pythonanywhere.com/v1/health)
 - [Live OpenAPI 3.1 specification](https://gimoon.pythonanywhere.com/v1/openapi.json)

@@ -1,0 +1,73 @@
+{
+  "synthetic": true,
+  "google_approval_verified": false,
+  "changes_applied": false,
+  "data": {
+    "total_products": 1,
+    "analyzed_products": 1,
+    "truncated": false,
+    "error_products": 1,
+    "warning_products": 1,
+    "issues": [
+      {
+        "row": 1,
+        "sku": "synthetic-1",
+        "code": "outer_whitespace",
+        "attribute": "title",
+        "message": "Surrounding whitespace can be removed after approval.",
+        "severity": "warning",
+        "source": "https://support.google.com/merchants/answer/7052112?hl=en",
+        "auto_fix": true
+      },
+      {
+        "row": 1,
+        "sku": "synthetic-1",
+        "code": "image_fetch_unverified",
+        "attribute": "image_link",
+        "message": "URL syntax only checked. Image reachability, content, size and crawl permissions require verification.",
+        "severity": "review",
+        "source": "https://support.google.com/merchants/answer/7052112?hl=en",
+        "auto_fix": false
+      },
+      {
+        "row": 1,
+        "sku": "synthetic-1",
+        "code": "gtin_checksum",
+        "attribute": "gtin",
+        "message": "GTIN check digit is invalid. No replacement is inferred.",
+        "severity": "error",
+        "source": "https://support.google.com/merchants/answer/6324461?hl=en",
+        "auto_fix": false
+      }
+    ],
+    "proposals": [
+      {
+        "id": "1:title",
+        "row": 1,
+        "sku": "synthetic-1",
+        "attribute": "title",
+        "before": " Canvas bag ",
+        "after": "Canvas bag",
+        "reason": "Remove surrounding whitespace only; product meaning and numeric amount unchanged.",
+        "source": "https://support.google.com/merchants/answer/7052112?hl=en"
+      }
+    ],
+    "issue_counts": {
+      "outer_whitespace": 1,
+      "image_fetch_unverified": 1,
+      "gtin_checksum": 1
+    },
+    "source_hash": "2cbbd7519106d6883178785c9e8b4fa13864c70ab111c02e941da49741edd6dc",
+    "encoding": "utf-8-sig",
+    "format": "csv",
+    "mapping": {},
+    "scope": "Offline structural checks, US/GB general products. Conditional category rules and live facts require manual review.",
+    "manual_checklist": [
+      "Compare price and availability with product page, checkout and structured data.",
+      "Verify GTIN assignment, brand and MPN using manufacturer evidence.",
+      "Check image access, category-specific and country-specific requirements.",
+      "Review account, shipping, returns and misrepresentation issues separately.",
+      "Review remaining errors before upload; Google makes final eligibility decisions."
+    ]
+  }
+}
