@@ -28,6 +28,8 @@ This sends only three anonymous GET requests to the free pilot: health, OpenAPI 
 If it passes, use the [pilot request brief](docs/first-diagnosis.md#request-a-free-api-pilot) to request manually reviewed access. If it fails, report status codes using a synthetic reproduction; do not share credentials.
 
 - [Live readiness endpoint](https://gimoon.pythonanywhere.com/v1/health)
+- [Explore the synthetic diagnosis in your browser](https://gimoon.pythonanywhere.com/#sample) — no upload or key; not a live feed checker
+- [Developer start page and pilot brief](https://gimoon.pythonanywhere.com/#start)
 - [Live OpenAPI 3.1 specification](https://gimoon.pythonanywhere.com/v1/openapi.json)
 - [Integration guide](docs/integration.md)
 - [Errors and quotas](docs/errors-and-limits.md)
