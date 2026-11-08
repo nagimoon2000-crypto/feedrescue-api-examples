@@ -12,7 +12,7 @@ python -m unittest discover -s tests -v
 node --test tests/growth.test.mjs tests/growth-clients.test.mjs
 ```
 
-Open http://127.0.0.1:8021. Omitting `--analytics` disables collection. Windows validation: 31 Python unittest methods and 6 Node tests passed. All receipts/data in tests are synthetic temporary fixtures. Browser visual QA remains pending: the tool returned “Local browser use is disabled in Work settings”. Check desktop/mobile, sample rendering, clipboard failure/success, outbound destinations, consent/withdrawal and offline behavior before deployment.
+Open http://127.0.0.1:8021. Omitting `--analytics` disables collection. Windows validation: 33 Python unittest methods and 6 Node tests passed. All receipts/data in tests are synthetic temporary fixtures. On 2026-11-09 Chrome verification passed for saved-report display, WooCommerce brief selection, clipboard success, consent/withdrawal/deletion and reload resetting consent. At 390px the document width was 390px; the mobile inquiry CTA was visually inspected. Clipboard denial/offline browser scenarios and production routing still need verification. The earlier browser-disabled blocker was resolved.
 
 ## Offer and leads
 
@@ -43,3 +43,22 @@ Integer minor units; USD/GBP separate. Duplicate IDs are idempotent, conflicting
 7. Roll back by restoring previous landing routing and disabling collector. Existing validation/payment infrastructure is unchanged. Keep private records secure.
 
 This branch does not establish conversion lift, production availability, paid subscribers or revenue.
+
+## Preserve the existing site with a dedicated mount
+
+The reviewed deployment target is `/integrations/`, not replacement of the live home page. In the existing host WSGI configuration, after constructing the existing `application`:
+
+```python
+from growth.deployment import mount
+application = mount(
+    application,
+    state_dir='/home/gimoon/.feedrescue-growth',
+    origin='https://gimoon.pythonanywhere.com',
+    prefix='/integrations',
+    analytics=False,
+)
+```
+
+Install the reviewed examples checkout on the host Python path first. The directory above is a proposed new private state location, not an assertion that it exists. This mount delegates home, existing assets, uploads and `/v1/` to the original application. It rewrites only the new page's local assets/config/event URLs and canonical URL. No API keys or original engine database are needed. Prefixes are limited to one dedicated lowercase segment; do not choose one already used by the original application.
+
+Before reload: back up WSGI, record current release, confirm prefix unused, create private state with service-account permissions, run tests on host and retain rollback. After reload: compare old home/upload/API status and new landing/assets/config; config must show enabled=false. Inspect the mounted page on desktop/mobile before enabling analytics. Rollback removes the mount and restores WSGI; keep the private database protected. No production reload, merge or new expense has been performed by this change.
