@@ -1,6 +1,6 @@
 # Growth execution plan — FeedRescue API
 
-> Status: implementation proposal only. Do not present pilot interest, conversions, testimonials or paid subscribers as achieved.
+> Status: optional landing, consent-based action tracking, SDK metadata hooks and private cash ledger implemented on this branch; see [implementation and deployment guide](docs/growth.md). Deployment and browser visual QA remain pending. Other items below remain proposals. Do not present pilot interest, conversions, testimonials or paid subscribers as achieved.
 
 ## Offer: sell the outcome, not a JSON endpoint
 **Audience:** Shopify/WooCommerce integrators and small feed agencies who need pre-submission data checks.

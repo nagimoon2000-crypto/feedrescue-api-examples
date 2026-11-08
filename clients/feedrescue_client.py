@@ -1,6 +1,8 @@
 """Dependency-free Python example. Set FEEDRESCUE_API_KEY in your environment."""
 import json
 import os
+import time
+import uuid
 from urllib.request import Request, build_opener, HTTPRedirectHandler
 from urllib.parse import urlsplit
 from urllib.error import HTTPError, URLError
@@ -11,14 +13,37 @@ class FeedRescueAPIError(RuntimeError):
         super().__init__(f'{status or "transport"}: {code}; request_id={request_id or "unavailable"}')
 
 class FeedRescueClient:
-    def __init__(self, key, base_url='http://127.0.0.1:8000'):
+    def __init__(self, key, base_url='http://127.0.0.1:8000', *, on_event=None, data_kind='synthetic'):
         url=urlsplit(base_url)
         if not url.hostname or url.username or url.password or url.query or url.fragment or not (url.scheme=='https' or (url.scheme=='http' and url.hostname in {'127.0.0.1','localhost'})):
             raise ValueError('Use HTTPS outside loopback.')
         if not isinstance(key,str) or not key:raise ValueError('Supply a private API key.')
         self.key, self.base_url = key, base_url.rstrip('/')
+        if on_event is not None and not callable(on_event):raise ValueError('on_event must be callable.')
+        if data_kind not in {'synthetic','real'}:raise ValueError('Explicit data_kind required.')
+        self.on_event,self.data_kind=on_event,data_kind
 
     def call(self, operation, payload=None):
+        started=time.perf_counter()
+        try:
+            result=self._call(operation,payload)
+        except FeedRescueAPIError:
+            self._observe(operation,payload,False,0,started)
+            raise
+        count=result['data'].get('analyzed_products')
+        if type(count) is int and 0<=count<=1000000:
+            self._observe(operation,payload,True,count,started)
+        return result
+
+    def _observe(self,operation,payload,success,products,started):
+        if not self.on_event or operation=='usage' or not isinstance(payload,dict) or payload.get('processing_consent') is not True:return
+        metadata={'event_id':str(uuid.uuid4()),'operation':operation,'data_kind':self.data_kind,
+                  'processing_consent':True,'success':success,'products':products,
+                  'latency_ms':min(300000,round((time.perf_counter()-started)*1000,3))}
+        try:self.on_event(metadata)
+        except Exception:pass  # Measurement must never change API behavior or retry a call.
+
+    def _call(self, operation, payload=None):
         allowed={'products/validate','products/batch-validate','products/suggest-fixes','feeds/validate','usage'}
         if operation not in allowed: raise ValueError('Unsupported operation')
         if (operation=='usage' and payload is not None) or (operation!='usage' and not isinstance(payload,dict)):
