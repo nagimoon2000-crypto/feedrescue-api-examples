@@ -17,6 +17,8 @@ from .ledger import GrowthLedger
 
 ROOT = Path(__file__).resolve().parents[1]
 FILES = {
+    '/file-diagnosis': ('growth/web/file-diagnosis.html','text/html; charset=utf-8'),
+    '/assets/seller.mjs': ('growth/web/seller.mjs','text/javascript; charset=utf-8'),
     '/': ('growth/web/index.html','text/html; charset=utf-8'),
     '/assets/site.css': ('growth/web/site.css','text/css; charset=utf-8'),
     '/assets/site.mjs': ('growth/web/site.mjs','text/javascript; charset=utf-8'),

@@ -1,5 +1,13 @@
 # Growth implementation and deployment
 
+## Seller conversion page (branch only; not deployed)
+
+`/file-diagnosis` adds a dedicated page for the existing $29 report-only file service, separate from the API pilot. Under the existing mount it will be `/integrations/file-diagnosis`. It explains real deliverables, original-row limits, excluded work and the existing synthetic finding examples. A browser-local scope guide prepares a private inquiry; it is neither a product validation nor order acceptance. No selections, clicks, product files or identifiers are submitted or stored by this page. Host logs remain separate. Outbound CTA points to the existing Upwork product.
+
+The root developer page links to it. The mount now scopes subpage canonicals as well as the home canonical. Existing API/engine/billing behavior is unchanged. Local Python33/Node9 tests passed; Chrome verified potentially suitable scope, copying, changing selections clearing stale brief, out-of-scope warning, and a 390px viewport with 375px content width. These QA actions are not leads. No conversion uplift is established.
+
+Deployment requires a new reviewed checkout/release and rollback backup using the existing mount instructions below. Keep analytics off, preserve the private state and engine path. After deployment verify both developer and seller canonical URLs, seller JS, inquiry reset/copy and original home/API routes. No new hosting, subscription, customer contact or public deployment occurred in this seller-page change.
+
 Optional developer landing and private ledger; no engine replacement, checkout or deployment.
 
 ## Local verification

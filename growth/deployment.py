@@ -31,8 +31,9 @@ def mount(existing, state_dir, origin, prefix='/integrations', analytics=False):
             for quote in (b'"', b"'"):
                 body = body.replace(quote+b'/', quote+prefix.encode()+b'/')
             if kind.startswith('text/html'):
-                body = body.replace((origin.rstrip('/')+'/"').encode(),
-                                    (origin.rstrip('/')+prefix+'/"').encode())
+                marker = '<link rel="canonical" href="' + origin.rstrip('/') + '/'
+                body = body.replace(marker.encode(),
+                                    (marker[:-1]+prefix+'/').encode())
             # HEAD has no body; preserve the transformed GET length instead.
             if env.get('REQUEST_METHOD') != 'HEAD': headers['Content-Length'] = str(len(body))
             else: headers.pop('Content-Length', None)

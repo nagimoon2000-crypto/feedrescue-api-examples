@@ -23,6 +23,11 @@ class DeploymentTests(unittest.TestCase):
             self.assertIn(b'href="/integrations/assets/site.css"',page)
             self.assertIn(b'https://pilot.test/integrations/',page)
             self.assertIn(b'https://www.upwork.com/',page)
+            seller=request('/integrations/file-diagnosis')['body']
+            self.assertIn(b'https://pilot.test/integrations/file-diagnosis',seller)
+            self.assertIn(b'/integrations/assets/seller.mjs',seller)
+            self.assertIn(b'https://www.upwork.com/services/product/2113612758971436241',seller)
+            self.assertEqual(request('/integrations/assets/seller.mjs')['status'],'200 OK')
             js=request('/integrations/assets/site.mjs')['body']
             self.assertIn(b"'/integrations/growth/config'",js)
             tracker=request('/integrations/assets/tracking.mjs')['body']
