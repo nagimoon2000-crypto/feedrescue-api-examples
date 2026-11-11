@@ -6,6 +6,8 @@ Python and JavaScript clients for **Google Merchant Center product feed diagnosi
 
 ## Start here
 
+Optional developer landing, consent-based funnel tracking and private cash ledger: [implementation and deployment guide](docs/growth.md). These are branch features, not a deployed checkout or replacement engine.
+
 | Your goal | Next step |
 |---|---|
 | Evaluate an integration without a key | Run the anonymous connection check below |

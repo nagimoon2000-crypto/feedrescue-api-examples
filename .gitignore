@@ -5,3 +5,7 @@ __pycache__/
 *.pyc
 node_modules/
 .venv/
+.growth-data/
+*.sqlite3
+*.sqlite3-*
+*.jsonl
